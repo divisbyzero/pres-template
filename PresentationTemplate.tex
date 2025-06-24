@@ -13,183 +13,55 @@
 % SCROLL TO THE BOTTOM TO INSERT YOUR TEXT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage[landscape]{geometry}
-\usepackage{graphicx,mathrsfs,rotating,amssymb,amsmath, amsthm,wasysym,multicol,textcomp}
-\setlength\rotFPtop{0pt plus 1fil}
-\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
-\usepackage[colorinlistoftodos]{todonotes}
-\usepackage{pdfpages,tikz,etoolbox}
-\usetikzlibrary{fit,shapes}
-\usepackage{marvosym,pifont}
-\newsavebox{\savepar}
-\usepackage{lineno,setspace}
-
-\setlength{\textwidth}{9in}
-\setlength{\textheight}{6in}
-\setlength{\topmargin}{-1in}
 
 
-%%%%%%%%%%%%%%%%%%
-%%%% change styles: editing, printing, workbook
+\usepackage{amsmath}    % Core AMS math environments
+\usepackage{amsthm}     % Theorem-like environments
+\usepackage{amssymb}    % Additional math symbols
+\usepackage{amsfonts}   % AMS fonts like \mathbb
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% change styles: editing, printing, workbook
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{etoolbox}
 \newtoggle{VersionForEditing}
 \newtoggle{VersionForPrinting}
 \newtoggle{WorkbookVersion}
 \newtoggle{ShowGroupAndAuthor}
 
 %set these true or false
-\toggletrue{VersionForEditing} 
-\togglefalse{VersionForPrinting}
-\togglefalse{ShowGroupAndAuthor} 
-\togglefalse{WorkbookVersion} 
+\togglefalse{VersionForEditing} 
+\toggletrue{VersionForPrinting}
+\toggletrue{ShowGroupAndAuthor} 
+\toggletrue{WorkbookVersion} 
+% Change the documentclass line 
+% Add in the body of the document to have the TOC start on page ii
+% \setcounter{page}{2}
 
-\iftoggle{ShowGroupAndAuthor}%shows the name of the group and the name of the author
-{
-   \iftoggle{VersionForPrinting}
-   {
-   \newcommand{\probleminfo}[3]{\probnote[color=White]{\footnotesize G: #1\\ A: #2\\E: #3}}}
-   {
-   \newcommand{\probleminfo}[3]{\probnote[color=Blue!20]{\footnotesize G: #1\\ A: #2\\E: #3}}}
-   }
-{
-\newcommand{\probleminfo}[3]{}
-}
+\RequirePackage[dvipsnames,svgnames,table]{xcolor}
+\newcommand{\qr}[4]{#2\,\begin{tabular}[b]{@{}r}#3\\ \hline\big)\begin{tabular}[t]{@{}l@{}}#1\end{tabular}\end{tabular}\hspace{-0.5em}\begin{tabular}[b]{l}#4\\~\end{tabular}}%division: write \qr{n}{d}{q}{r} where q= n div d and r=n mod d
+\newcommand{\ndv}{\hspace{-4pt}\not|\hspace{2pt}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\dom}{\operatorname{Dom}}
+\newcommand{\codom}{\operatorname{Codom}}
+\newcommand{\range}{\operatorname{Range}}
+\newcommand{\dv}{\operatorname{div}}
+\renewcommand{\mod}{\bmod}
+\renewcommand{\iff}{\leftrightarrow}
+\renewcommand{\implies}{\to}
+\renewcommand{\neg}{\sim}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\powerset}{\mathcal{P}}
+\newcommand{\ep}{\varepsilon}
+\newcommand{\shade}{{\cellcolor{Blue!10}}}
 
-\iftoggle{VersionForEditing}
-{
-%\renewenvironment{linenumbers}{}{}% comment this line if you want numbers line numbers during editing
-}{
-\renewenvironment{linenumbers}{}{}% no line numbers
-}
-
-\iftoggle{VersionForPrinting}
-{ % makes boxes gray
-\iftoggle{VersionForEditing}
-   {
-   \newenvironment{xbox}{\begin{spacing}{1}\noindent\begin{lrbox}{\savepar}\begin{minipage}[c]{.92\textwidth}}{\end{minipage}\end{lrbox}\fcolorbox{black}{Gray!25}{\usebox{\savepar}}\end{spacing}}
-   }{
-   \newenvironment{xbox}{\par\noindent\begin{lrbox}{\savepar}\begin{minipage}[c]{.92\textwidth}}{\end{minipage}\end{lrbox}\fcolorbox{black}{Gray!25}{\usebox{\savepar}}}
-   }
-\newcommand{\smbox}[1]{\fcolorbox{black}{Gray!25}{#1}}
-\usepackage[colorlinks=false]{hyperref}
-}{ % creates hyperlinks, makes boxes yellow
-\usepackage[colorlinks=true,citecolor=red,linkcolor=blue]{hyperref}
-\iftoggle{VersionForEditing}
-   {
-   \newenvironment{xbox}{\begin{spacing}{1}\noindent\begin{lrbox}{\savepar}\begin{minipage}[c]{.92\textwidth}}{\end{minipage}\end{lrbox}\fcolorbox{black}{yellow}{\usebox{\savepar}}\end{spacing}}
-   }{
-   \newenvironment{xbox}{\par\noindent\begin{lrbox}{\savepar}\begin{minipage}[c]{.92\textwidth}}{\end{minipage}\end{lrbox}\fcolorbox{black}{yellow}{\usebox{\savepar}}}
-   }
-\newcommand{\smbox}[1]{\fcolorbox{black}{yellow}{#1}}
-\newcommand{\status}[1]{[\textsc{#1}]}
-}
-
-\iftoggle{WorkbookVersion}
-{ %spaces to write answers, one sided
-\setlength{\textheight}{9in}
-\setlength{\topmargin}{0in}
-\setlength{\oddsidemargin}{-.1in}
-\newcommand{\newpg}{\newpage}
-}{ %no spaces for answers, double sided
-\setlength{\evensidemargin}{.6in}
-\setlength{\oddsidemargin}{-.1in}
-\newcommand{\newpg}{} 
-\renewcommand{\vfill}{}
-\renewcommand{\fill}{}
-\renewcommand{\vspace}[1]{}
-}
-
-       
-%\theoremstyle{plain} 
-\newtheoremstyle{mytheorem}% name
-{}% Space above
-{}% Space below
-{\itshape}% Body font
-{0in}% Indent amount
-{\bfseries}% Theorem head font
-{.}% Punctuation after theorem head
-{.5em}% Space after theorem head
-{}% Theorem head spec (can be left empty, meaning "��normal"��)
-
-\newtheoremstyle{myenv}% name
-{}% Space above
-{}% Space below
-{}% Body font
-{0in}% Indent amount
-{\bfseries}% Theorem head font
-{.}% Punctuation after theorem head
-{.5em}% Space after theorem head
-{}% Theorem head spec (can be left empty, meaning "��normal"��)
-
-\makeatletter%Redefined proof environment so that the word ``proof'' is not indented
-\renewenvironment{proof}[1][\proofname]{\par
-  \pushQED{\qed}%
-  \normalfont \topsep6\p@\@plus6\p@\relax
-  \trivlist
-  \itemindent\z@ % original has \normalparindent
-  \item[\hskip\labelsep
-        \scshape
-    #1\@addpunct{.}]\ignorespaces
-    \iftoggle{VersionForEditing}{\begin{spacing}{2}}{}%double space proofs
-    \begin{linenumbers}\resetlinenumber
-}{%
-\end{linenumbers}
-\iftoggle{VersionForEditing}{\end{spacing}}{}
-  \popQED\endtrivlist\@endpefalse
-}
-\makeatother
-
-
-
-\makeatletter%Redefined proof environment so that the word ``solution'' is not indented
-\newenvironment{solution}[1][Solution]{\par
-  \pushQED{\qed}%
-  \normalfont \topsep6\p@\@plus6\p@\relax
-  \trivlist
-  \itemindent\z@ % original has \normalparindent
-  \item[\hskip\labelsep
-        \scshape
-    #1\@addpunct{.}]\ignorespaces
-    \iftoggle{VersionForEditing}{\begin{spacing}{2}}{}%double space proofs
-       \begin{linenumbers}\resetlinenumber
-}{%
-\end{linenumbers}
-\iftoggle{VersionForEditing}{\end{spacing}}{}
-  \popQED\endtrivlist\@endpefalse
-}
-\makeatother
-
-
-
-\makeatletter%Redefined proof environment so that the word ``proof'' is not indented
-\newenvironment{bookproof}[1][Proof]{\par
-  \pushQED{\qed}%
-  \normalfont \topsep6\p@\@plus6\p@\relax
-  \trivlist
-  \itemindent\z@ % original has \normalparindent
-  \item[\hskip\labelsep
-        \scshape
-    #1\@addpunct{.}]\ignorespaces
-}{%
-  \popQED\endtrivlist\@endpefalse
-}
-\makeatother
-
-
-
-\theoremstyle{mytheorem}
-\newtheorem*{theorem}{Theorem}
-\newtheorem*{corollary}{Corollary} 
-\newtheorem*{conjecture}{\smbox{Conjecture}} 
-\newtheorem*{proposition}{Proposition}
-\newtheorem*{lemma}{Lemma}
-\newtheorem*{axiom}{Axiom} 
-\theoremstyle{myenv} 
-\newtheorem*{definition}{Definition}
-\newtheorem*{exercise}{Exercise} 
-\newtheorem*{question}{Question} 
-\newtheorem*{example}{Example} 
-\newtheorem*{remark}{Remark}
+\RequirePackage{tikz}
+\usetikzlibrary{fit}
+\usetikzlibrary{shapes}
 
 %%%%%Arrow diagram defs
 \newenvironment{arrowdiagram}{
@@ -211,8 +83,8 @@
 \newcommand{\delement}[4][]{\node[bulletstyle,label=left:#1] (d#2) at (0,{max((#4-#3)/2,0)+#3-#2+1}) {};}
 \newcommand{\codelement}[4][]{\node[bulletstyle,label=right:#1] (c#2) at (4,{max((#3-#4)/2,0)+#4-#2+1}) {};}
 \newcommand{\functionarrow}[2]{\draw[functionarrowstyle] (d#1) -- (c#2);}
-\newcommand{\codomainboundary}[1][]{\node[setboundarystyle,right=5pt, fit=(c1) (c#1),minimum width=2.5cm] (codomainboundary){} ;}
-\newcommand{\domainboundary}[1][]{\node[setboundarystyle,left=5pt,fit=(d1) (d#1),minimum width=2.5cm] (domainboundary) {} ;}
+\newcommand{\codomainboundary}[1][]{\node[setboundarystyle,right=5pt, fit=(c1) (c#1),minimum width=3.25cm] (codomainboundary){} ;}
+\newcommand{\domainboundary}[1][]{\node[setboundarystyle,left=5pt,fit=(d1) (d#1),minimum width=3.25cm] (domainboundary) {} ;}
 %%%%%
 
 
@@ -242,32 +114,218 @@
 \newcommand{\cocodelement}[5][]{\node[bulletstyle,label=right:#1] (cc#2) at (8,{(max(#3,max(#4,#5))-#5)/2+#5-#2+1}) {};}
 \newcommand{\cocodomainboundary}[1][]{\node[setboundarystyle,right=0, fit=(cc1) (cc#1),minimum width=2.5cm] (cocodomainboundary){} ;}
 \newcommand{\secondfunctionarrow}[2]{\draw[functionarrowstyle] (c#1) -- (cc#2);}
-%%%%%
 
-\newenvironment{exbox}{\noindent\begin{lrbox}{\savepar}\begin{minipage}[c]{.98\textwidth}}{\end{minipage}\end{lrbox}\fcolorbox{black}{white}{\usebox{\savepar}}}
-\newcommand{\smwhitebox}[1]{\fcolorbox{black}{white}{#1}}
-\newcommand{\mn}[1]{\todo[color=orange!40]{#1}}
-\newcommand{\note}[2][]{}
-\newcommand{\probnote}[2][]{\todo[caption={#2},size=\footnotesize,noline, #1]{\renewcommand{\baselinestretch}{1}\selectfont#2\par}}
-\newcommand{\shade}{{\cellcolor{Gray!25}}}
-\newcommand{\qr}[4]{#2\,\begin{tabular}[b]{@{}r}#3\\ \hline\big)\begin{tabular}[t]{@{}l@{}}#1\end{tabular}\end{tabular}\hspace{-0.5em}\begin{tabular}[b]{l}#4\\~\end{tabular}}%division: write \qr{n}{d}{q}{r} where q= n div d and r=n mod d
-\newcommand{\ndv}{\hspace{-4pt}\not|\hspace{2pt}}
-\newcommand{\id}{\operatorname{id}}
-\newcommand{\dom}{\operatorname{Dom}}
-\newcommand{\codom}{\operatorname{Codom}}
-\newcommand{\range}{\operatorname{Range}}
-\newcommand{\dv}{\operatorname{div}}
-\renewcommand{\mod}{\bmod}
-\renewcommand{\iff}{\leftrightarrow}
-\renewcommand{\implies}{\to}
-\renewcommand{\neg}{\sim}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\powerset}{\mathcal{P}}
-\newcommand{\ep}{\varepsilon}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% === Required Packages ===
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{multicol}
+\usepackage[dvipsnames,svgnames,table]{xcolor}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{pdfpages} 
+\usepackage{etoolbox}
+\usepackage{marvosym} 
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{mdframed}
+\usepackage[most]{tcolorbox} 
+\usepackage[figuresleft]{rotating}
+\usepackage{marginnote}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% === Page Layout ===
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[landscape]{geometry}
+\setlength{\textwidth}{9in}
+\setlength{\textheight}{6in}
+\setlength{\topmargin}{-1in}
+\setlength{\parindent}{.5cm}
+\setlength\rotFPtop{0pt plus 1fil}
+\setlength{\belowcaptionskip}{0pt} %less space below captions
+
+\newsavebox{\savepar}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% === Toggle-Dependent Environments ===
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\iftoggle{VersionForPrinting}{%
+  \usepackage[colorlinks=false,pdfborder={0 0 0}]{hyperref}%
+}{%
+  \usepackage[colorlinks=true,citecolor=red,linkcolor=blue]{hyperref}%
+}
+
+\iftoggle{WorkbookVersion}{%
+  \setlength{\textheight}{9in}%
+  \setlength{\topmargin}{0in}%
+  \setlength{\oddsidemargin}{-.1in}%
+  \newcommand{\newpg}{\newpage}%
+}{%
+  \setlength{\evensidemargin}{.6in}%
+  \setlength{\oddsidemargin}{-.1in}%
+  \newcommand{\newpg}{}%
+  \renewcommand{\vfill}{}%
+  \makeatletter
+  \patchcmd{\vspace}{\@ifstar}{\@gobbletwo}{}{}%
+  \makeatother%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% === Theorem Styles ===
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheorem}{}{}{\itshape}{0in}{\bfseries}{.}{.5em}{}
+\newtheoremstyle{myenv}{}{}{ }{0in}{\bfseries}{.}{.5em}{}
+
+\theoremstyle{mytheorem}
+\newmdtheoremenv[style=mytheoremboxstyle]{theorem}{Theorem}[chapter]
+\newmdtheoremenv[style=mytheoremboxstyle]{lemma}[theorem]{Lemma}
+\newmdtheoremenv[style=mytheoremboxstyle]{corollary}[theorem]{Corollary}
+\newmdtheoremenv[style=myconjectureboxstyle]{conjecture}[theorem]{Conjecture}
+\newmdtheoremenv[style=mydefboxstyle]{definition}[theorem]{Definition}
+
+\theoremstyle{myenv}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% === Proof Environments ===
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \itemindent\z@
+  \item[\hskip\labelsep \scshape #1\@addpunct{.}]\ignorespaces
+  \iftoggle{VersionForEditing}{\begin{spacing}{2}}{}
+}{%
+  \iftoggle{VersionForEditing}{\end{spacing}}{}
+  \popQED\endtrivlist\@endpefalse
+}
+
+\newenvironment{solution}[1][Solution]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \itemindent\z@
+  \item[\hskip\labelsep \scshape #1\@addpunct{.}]\ignorespaces
+  \iftoggle{VersionForEditing}{\begin{spacing}{2}}{}
+}{%
+  \iftoggle{VersionForEditing}{\end{spacing}}{}
+  \popQED\endtrivlist\@endpefalse
+}
+
+\newenvironment{bookproof}[1][Proof]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \itemindent\z@
+  \item[\hskip\labelsep \scshape #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% === Boxed Environments ===
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mdfdefinestyle{mytheoremboxstyle}{
+  backgroundcolor=Red!25,
+  linecolor=black,
+  linewidth=1pt,
+  roundcorner=0pt,
+  innertopmargin=0pt,
+  skipabove=4pt,
+  skipbelow=4pt,
+  theoremseparator={.},
+}
+
+\mdfdefinestyle{myconjectureboxstyle}{
+  backgroundcolor=Orange!50,
+  linecolor=black,
+  linewidth=1pt,
+  roundcorner=0pt,
+  innertopmargin=0pt,
+  skipabove=4pt,
+  skipbelow=4pt,
+  theoremseparator={.},
+}
+
+\mdfdefinestyle{mydefboxstyle}{
+  backgroundcolor=Blue!15,
+  linecolor=black,
+  linewidth=1pt,
+  roundcorner=0pt,
+  innertopmargin=0pt,
+  skipabove=4pt,
+  skipbelow=4pt,
+}
+
+\newmdenv[ % not to be used on its own, but as part of the environment below
+  backgroundcolor=Yellow!20,
+  linecolor=black,
+  linewidth=0.5pt,
+  roundcorner=0pt,
+  innertopmargin=4pt,
+  innerbottommargin=4pt,
+  skipabove=4pt,
+  skipbelow=4pt,
+]{instructionbox_internal}
+
+\newenvironment{instructionbox}
+  {\begingroup\setstretch{1}\begin{instructionbox_internal}}
+  {\end{instructionbox_internal}\endgroup}
+
+
+\mdfdefinestyle{myexboxstyle}{
+  backgroundcolor=ForestGreen!20,
+  linecolor=black,
+  linewidth=1pt,
+  roundcorner=0pt,
+  innertopmargin=6pt,
+  innerbottommargin=6pt,
+  innerleftmargin=6pt,
+  innerrightmargin=6pt,
+  skipabove=8pt,
+  skipbelow=8pt,
+}
+
+\newmdenv[style=myexboxstyle]{exbox}
+
+\newcommand{\marginnotefootnotesize}[3][black]{%
+  \marginnote{%
+    {%
+      \setlength{\fboxrule}{0.5pt}%
+      \fcolorbox{#1}{#2}{\parbox{2.8cm}{\raggedright\footnotesize #3}}%
+    }%
+  }%
+}
+
+\newcommand{\note}[2][]{\marginnotefootnotesize[black]{white}{#2}}
+\newcommand{\fillintheblank}[1]{{\larger[8]{\vphantom{X}\rule{#1}{0.15mm}}}}
+\newcommand{\SmallInstructionBox}[1]{\setlength{\fboxrule}{0.5pt}\fcolorbox{black}{Yellow!20}{\strut #1}}
+
+\iftoggle{ShowGroupAndAuthor}{%
+  \newcommand{\probleminfo}[2]{%
+    \setlength{\fboxrule}{0.5pt}%
+    \fcolorbox{black}{BlueGreen!15}{\footnotesize #1, #2}%
+  }%
+}{%
+  \newcommand{\probleminfo}[2]{}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% === List Formatting ===
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\labelitemii}{$\circ$}
 
 
 \begin{document}
