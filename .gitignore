@@ -1,0 +1,65 @@
+`# macOS system files
+.DS_Store
+
+# Final PDF output
+Math211Notes.pdf
+
+
+# LaTeX build temp files
+**/.texpadtmp/
+tempfiles/
+
+
+### TeX ###
+## Core latex/pdflatex auxiliary files:
+*.aux
+*.auxlock
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+*.alias
+*.dpth
+*.md5
+*.ent
+*.nav
+*.snm
+*.vrb
+*.nav
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+
+
+## Intermediate documents:
+*.dvi
+*.xdv
+*-converted-to.*
+
+
+## Bibliography auxiliary files (bibtex/biblatex/biber):
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+
+## Build tool auxiliary files:
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync

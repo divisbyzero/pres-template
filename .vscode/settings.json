@@ -1,0 +1,60 @@
+{
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "latexmk",
+      "tools": [
+        "latexmk"
+      ]
+    }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-shell-escape",
+        "-pdf",
+        "-interaction=nonstopmode",
+        "-synctex=1",
+        "-file-line-error",
+        "-outdir=tempfiles",
+        "%DOC%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.autoBuild.run": "onSave", // Options: "never", "onFileChange", "onSave"
+  "latex-workshop.latex.rootFile.useSubFile": false,
+  "latex-workshop.latex.rootFile.doNotPrompt": true,
+  "latex-workshop.latex.autoClean.run": "never", // Options: "never", "onSave", "onBuild"
+  "latex-workshop.latex.clean.method": "glob",
+  "latex-workshop.latex.clean.subfolder.enabled": true,
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux",
+    "*.auxlock",
+    "*.bbl",
+    "*.blg",
+    "*.idx",
+    "*.ilg",
+    "*.ind",
+    "*.lof",
+    "*.lot",
+    "*.out",
+    "*.toc",
+    "*.acn",
+    "*.acr",
+    "*.alg",
+    "*.glg",
+    "*.glo",
+    "*.gls",
+    "*.fls",
+    "*.log",
+    "*.fdb_latexmk",
+    "*.xdv",
+    "*.ent",
+    "*.nav",
+    "*.snm",
+    "*.bcf",
+    "*.vrb",
+    "*.run.xml"
+  ]
+}
