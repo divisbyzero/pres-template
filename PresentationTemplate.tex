@@ -1,11 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% Welcome to Overleaf --- just edit your LaTeX on the left,
-% and we'll compile it for you on the right. If you open the
-% 'Share' menu, you can invite other users to edit at the same
-% time. See www.overleaf.com/learn for more info. Enjoy!
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[17pt,oneside]{extbook}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %           ATTENTION STUDENTS
@@ -19,24 +11,7 @@
 \usepackage{amsthm}     % Theorem-like environments
 \usepackage{amssymb}    % Additional math symbols
 \usepackage{amsfonts}   % AMS fonts like \mathbb
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% change styles: editing, printing, workbook
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\RequirePackage{etoolbox}
-\newtoggle{VersionForEditing}
-\newtoggle{VersionForPrinting}
-\newtoggle{WorkbookVersion}
-\newtoggle{ShowGroupAndAuthor}
-
-%set these true or false
-\togglefalse{VersionForEditing} 
-\toggletrue{VersionForPrinting}
-\toggletrue{ShowGroupAndAuthor} 
-\toggletrue{WorkbookVersion} 
-% Change the documentclass line 
-% Add in the body of the document to have the TOC start on page ii
-% \setcounter{page}{2}
+\usepackage{relsize}
 
 \RequirePackage[dvipsnames,svgnames,table]{xcolor}
 \newcommand{\qr}[4]{#2\,\begin{tabular}[b]{@{}r}#3\\ \hline\big)\begin{tabular}[t]{@{}l@{}}#1\end{tabular}\end{tabular}\hspace{-0.5em}\begin{tabular}[b]{l}#4\\~\end{tabular}}%division: write \qr{n}{d}{q}{r} where q= n div d and r=n mod d
@@ -144,6 +119,7 @@
 \setlength{\textwidth}{9in}
 \setlength{\textheight}{6in}
 \setlength{\topmargin}{-1in}
+\setlength{\oddsidemargin}{0in}
 \setlength{\parindent}{.5cm}
 \setlength\rotFPtop{0pt plus 1fil}
 \setlength{\belowcaptionskip}{0pt} %less space below captions
@@ -154,26 +130,7 @@
 % === Toggle-Dependent Environments ===
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\iftoggle{VersionForPrinting}{%
-  \usepackage[colorlinks=false,pdfborder={0 0 0}]{hyperref}%
-}{%
-  \usepackage[colorlinks=true,citecolor=red,linkcolor=blue]{hyperref}%
-}
-
-\iftoggle{WorkbookVersion}{%
-  \setlength{\textheight}{9in}%
-  \setlength{\topmargin}{0in}%
-  \setlength{\oddsidemargin}{-.1in}%
-  \newcommand{\newpg}{\newpage}%
-}{%
-  \setlength{\evensidemargin}{.6in}%
-  \setlength{\oddsidemargin}{-.1in}%
-  \newcommand{\newpg}{}%
-  \renewcommand{\vfill}{}%
-  \makeatletter
-  \patchcmd{\vspace}{\@ifstar}{\@gobbletwo}{}{}%
-  \makeatother%
-}
+\usepackage[colorlinks=true,citecolor=red,linkcolor=blue]{hyperref}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % === Theorem Styles ===
@@ -205,9 +162,9 @@
   \trivlist
   \itemindent\z@
   \item[\hskip\labelsep \scshape #1\@addpunct{.}]\ignorespaces
-  \iftoggle{VersionForEditing}{\begin{spacing}{2}}{}
+  \begin{spacing}{2}
 }{%
-  \iftoggle{VersionForEditing}{\end{spacing}}{}
+\end{spacing}
   \popQED\endtrivlist\@endpefalse
 }
 
@@ -217,9 +174,9 @@
   \trivlist
   \itemindent\z@
   \item[\hskip\labelsep \scshape #1\@addpunct{.}]\ignorespaces
-  \iftoggle{VersionForEditing}{\begin{spacing}{2}}{}
+  \begin{spacing}{2}
 }{%
-  \iftoggle{VersionForEditing}{\end{spacing}}{}
+\end{spacing}
   \popQED\endtrivlist\@endpefalse
 }
 
@@ -300,27 +257,13 @@
 
 \newmdenv[style=myexboxstyle]{exbox}
 
-\newcommand{\marginnotefootnotesize}[3][black]{%
-  \marginnote{%
-    {%
-      \setlength{\fboxrule}{0.5pt}%
-      \fcolorbox{#1}{#2}{\parbox{2.8cm}{\raggedright\footnotesize #3}}%
-    }%
-  }%
-}
+\newcommand{\marginnotefootnotesize}[3][black]{\marginnote{}}
 
 \newcommand{\note}[2][]{\marginnotefootnotesize[black]{white}{#2}}
 \newcommand{\fillintheblank}[1]{{\larger[8]{\vphantom{X}\rule{#1}{0.15mm}}}}
 \newcommand{\SmallInstructionBox}[1]{\setlength{\fboxrule}{0.5pt}\fcolorbox{black}{Yellow!20}{\strut #1}}
 
-\iftoggle{ShowGroupAndAuthor}{%
-  \newcommand{\probleminfo}[2]{%
-    \setlength{\fboxrule}{0.5pt}%
-    \fcolorbox{black}{BlueGreen!15}{\footnotesize #1, #2}%
-  }%
-}{%
-  \newcommand{\probleminfo}[2]{}%
-}
+\newcommand{\probleminfo}[2]{\setlength{\fboxrule}{0.5pt}\fcolorbox{black}{BlueGreen!15}{\footnotesize #1, #2}}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % === List Formatting ===
@@ -335,10 +278,6 @@
 %     INSERT YOUR TEXT BELOW THIS BOX
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis erat eu est egestas pulvinar. Curabitur consectetur ultricies maximus. Proin at quam purus. Aenean consectetur tristique vulputate. Proin mattis sapien id magna faucibus, et fermentum massa viverra. Sed vel ipsum sagittis, viverra nisi sed, consequat velit. Donec vitae nunc tincidunt, dapibus nisl eget, condimentum lectus. Phasellus tristique est eu lorem tristique, sed volutpat libero euismod. Donec porta dolor lacus, eget egestas velit scelerisque ut. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-\[\int_0^1 x^2 \, dx = \left. \frac{x^3}{3} \right|_0^1 = \frac{1}{3}.\]
-
-
+Replace this text.
 
 \end{document}
