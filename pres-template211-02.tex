@@ -120,8 +120,8 @@
 % === Proof Environments ===
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \makeatletter
-\renewenvironment{proof}[1][\proofname]{\par\pushQED{\qed}\normalfont \topsep6\p@\@plus6\p@\relax\trivlist\itemindent\z@\item[\hskip\labelsep \scshape #1\@addpunct{.}]\ignorespaces\begin{spacing}{2}}{\end{spacing}\popQED\endtrivlist\@endpefalse}
-\newenvironment{solution}[1][Solution]{\par\pushQED{\qed}\normalfont \topsep6\p@\@plus6\p@\relax\trivlist\itemindent\z@\item[\hskip\labelsep \scshape #1\@addpunct{.}]\ignorespaces\begin{spacing}{2}}{\end{spacing}\popQED\endtrivlist\@endpefalse}
+\renewenvironment{proof}[1][\proofname]{\par\pushQED{\qed}\normalfont \topsep6\p@\@plus6\p@\relax\trivlist\itemindent\z@\item[\hskip\labelsep \scshape #1\@addpunct{.}]\ignorespaces\begin{spacing}{2}}{\popQED\end{spacing}\endtrivlist\@endpefalse}
+\newenvironment{solution}[1][Solution]{\par\pushQED{\qed}\normalfont \topsep6\p@\@plus6\p@\relax\trivlist\itemindent\z@\item[\hskip\labelsep \scshape #1\@addpunct{.}]\ignorespaces\begin{spacing}{2}}{\popQED\end{spacing}\endtrivlist\@endpefalse}
 \newenvironment{bookproof}[1][Proof]{\par\pushQED{\qed}\normalfont \topsep6\p@\@plus6\p@\relax\trivlist\itemindent\z@\item[\hskip\labelsep \scshape #1\@addpunct{.}]\ignorespaces
 }{\popQED\endtrivlist\@endpefalse}
 \makeatother
