@@ -1,0 +1,147 @@
+\documentclass[17pt,oneside]{extbook}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% == ATTENTION STUDENTS ==
+% IGNORE THIS PREAMBLE
+% SCROLL TO THE BOTTOM TO INSERT YOUR TEXT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% https://www.overleaf.com/docs?snip_uri=https://raw.githubusercontent.com/divisbyzero/pres-template/main/pres-template481-02.tex&splash=none
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% === Required Packages ===
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amsthm,amssymb,amsfonts,relsize,graphicx,mathrsfs,wasysym,multicol,marginnote}
+\usepackage[dvipsnames,svgnames,table]{xcolor}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{pdfpages,etoolbox,marvosym,setspace,enumitem,framed,mdframed}
+\usepackage[most]{tcolorbox} 
+\usepackage[figuresleft]{rotating}
+\usepackage[colorlinks=true,citecolor=red,linkcolor=blue]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{fit}
+\usetikzlibrary{shapes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% === Page Layout ===
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[landscape]{geometry}
+\setlength{\textwidth}{9in}
+\setlength{\textheight}{6.75in}
+\setlength{\topmargin}{-.75in} % base offset
+\addtolength{\topmargin}{-10pt} % compensate for increased header
+\setlength{\headheight}{40pt}  % ensure header space
+\setlength{\oddsidemargin}{0in}
+\setlength{\parindent}{.75cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% === Custom Commands ===
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\T}{\mathbf{T}}
+\newcommand{\BS}{\mathcal{B}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\F}{\mathbf{F}}
+\newcommand{\D}{\mathbf{D}}
+\newcommand{\B}{\mathbf{B}}
+\newcommand{\pp}{\mathbb{P}^{2}}
+\newcommand{\torus}{\mathbb{T}^{2}}
+\newcommand{\kb}{\mathbf{KB}}
+\newcommand{\fe}{\mathbf{FE}}
+\newcommand{\mb}{\mathbf{MB}}
+\newcommand{\ep}{\varepsilon}
+\newcommand{\PS}{\mathcal{P}}
+\DeclareMathOperator{\Int}{int}
+\newcommand{\bnd}{\partial}
+\DeclareMathOperator{\cl}{cl}
+\newcommand{\homeo}{\approx}
+\newcommand{\maybehomeo}{\approx\hspace{-.1in}?}
+%\newcommand{\maybehomeo}{\stackrel{_{?}}{\approx}}
+\newcommand{\shade}{{\cellcolor{Gray!100}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% === Theorem Styles ===
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheorem}{}{}{\itshape}{0in}{\bfseries}{.}{.5em}{}
+\newtheoremstyle{myenv}{}{}{ }{0in}{\bfseries}{.}{.5em}{}
+\theoremstyle{mytheorem}
+\newmdtheoremenv[style=mytheoremboxstyle]{theorem}{Theorem}[chapter]
+\newmdtheoremenv[style=mytheoremboxstyle]{lemma}[theorem]{Lemma}
+\newmdtheoremenv[style=mytheoremboxstyle]{corollary}[theorem]{Corollary}
+\newmdtheoremenv[style=myconjectureboxstyle]{conjecture}[theorem]{Conjecture}
+\newmdtheoremenv[style=mydefboxstyle]{definition}[theorem]{Definition}
+\theoremstyle{myenv}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% === Proof Environments ===
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par\pushQED{\qed}\normalfont \topsep6\p@\@plus6\p@\relax\trivlist\itemindent\z@\item[\hskip\labelsep \scshape #1\@addpunct{.}]\ignorespaces\begin{spacing}{2}}{\popQED\end{spacing}\endtrivlist\@endpefalse}
+\newenvironment{solution}[1][Solution]{\par\pushQED{\qed}\normalfont \topsep6\p@\@plus6\p@\relax\trivlist\itemindent\z@\item[\hskip\labelsep \scshape #1\@addpunct{.}]\ignorespaces\begin{spacing}{2}}{\popQED\end{spacing}\endtrivlist\@endpefalse}
+\newenvironment{bookproof}[1][Proof]{\par\pushQED{\qed}\normalfont \topsep6\p@\@plus6\p@\relax\trivlist\itemindent\z@\item[\hskip\labelsep \scshape #1\@addpunct{.}]\ignorespaces
+}{\popQED\endtrivlist\@endpefalse}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% === Boxed Environments ===
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mdfdefinestyle{mytheoremboxstyle}{backgroundcolor=Red!25,linecolor=black,linewidth=1pt,
+roundcorner=0pt,innertopmargin=0pt,skipabove=4pt,skipbelow=4pt,theoremseparator={.}}
+\mdfdefinestyle{myconjectureboxstyle}{backgroundcolor=Orange!50,linecolor=black,linewidth=1pt,roundcorner=0pt,innertopmargin=0pt,skipabove=4pt,skipbelow=4pt,theoremseparator={.}}
+\mdfdefinestyle{mydefboxstyle}{backgroundcolor=Blue!15,linecolor=black,linewidth=1pt,roundcorner=0pt,innertopmargin=0pt,skipabove=4pt,skipbelow=4pt}
+\newmdenv[backgroundcolor=Yellow!20,linecolor=black,linewidth=0.5pt,roundcorner=0pt,innertopmargin=4pt,innerbottommargin=4pt,skipabove=4pt,skipbelow=4pt]{instructionbox_internal}
+\newenvironment{instructionbox}{\begingroup\setstretch{1}\begin{instructionbox_internal}}{\end{instructionbox_internal}\endgroup}
+\mdfdefinestyle{myexboxstyle}{backgroundcolor=ForestGreen!20,linecolor=black,linewidth=1pt,roundcorner=0pt,innertopmargin=6pt,innerbottommargin=6pt,innerleftmargin=6pt,innerrightmargin=6pt,skipabove=8pt,skipbelow=8pt}
+\newmdenv[style=myexboxstyle]{exbox}
+\newcommand{\marginnotefootnotesize}[3][black]{\marginnote{}}
+\newcommand{\note}[2][]{\marginnotefootnotesize[black]{white}{#2}}
+\newcommand{\fillintheblank}[1]{{\larger[8]{\vphantom{X}\rule{#1}{0.15mm}}}}
+\newcommand{\SmallInstructionBox}[1]{\setlength{\fboxrule}{0.5pt}\fcolorbox{black}{Yellow!20}{\strut #1}}
+\newcommand{\probleminfo}[2]{\setlength{\fboxrule}{0.5pt}\fcolorbox{black}{BlueGreen!15}{\footnotesize #1, #2}}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% === Template Header ===
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\StudentName}{NAME}
+\newcommand{\StudentSection}{SECTION}
+\newcommand{\ProblemNumber}{PROBLEM}
+\newcommand{\MyName}[1]{\renewcommand{\StudentName}{#1}}
+\newcommand{\MySection}[1]{\renewcommand{\StudentSection}{#1}}
+\newcommand{\MyProblemNumber}[1]{\renewcommand{\ProblemNumber}{#1}}
+\usepackage{fancyhdr}
+\pagestyle{empty}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[C]{\begin{tcolorbox}[colback=BlueViolet!20!white, colframe=Black, boxrule=0.5pt, sharp corners, width=\textwidth, enlarge left by=-\hoffset, left=0pt, right=0pt, top=2pt, bottom=2pt]\centering\begin{tabular*}{.97\textwidth}{@{\extracolsep{\fill}}lcr}\textbf{\StudentName} & \textbf{\ProblemNumber} & \textbf{\StudentSection}\end{tabular*}\end{tcolorbox}}
+
+
+\begin{document}
+\thispagestyle{fancy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% == ATTENTION STUDENTS ==
+% DO NOT EDIT ANYTHING ABOVE THIS BOX
+% INSERT YOUR TEXT BELOW
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\MyName{Your Name} % Add your name before submitting
+\MyProblemNumber{Theorem X.X} % Add your problem number before submitting
+\MySection{MATH 481-02}
+% Also, remember:
+% Name the file: JaneDoe_2.13.pdf
+% Email subject line: MATH 481-02: Presentation problem
+
+Replace this text with the statement of the theorem/exercise and your proof/solution.
+
+
+\end{document}
